@@ -43,8 +43,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 boolean hasText = !gradesField.getText().toString().isEmpty();
-                if (!hasFocus && !hasText) {
+                if (!hasFocus) {
                     gradesField.setError("Required");
+                    if (!hasText) {
+                        gradesField.setError("Required");
+                        return;
+                    }
+                    Integer value = Integer.parseInt(gradesField.getText().toString());
+                    if (value < 5 || value > 15) {
+                        gradesField.setError("Provide value between 5 and 15");
+                        return;
+                    }
                 }
             }
         });
