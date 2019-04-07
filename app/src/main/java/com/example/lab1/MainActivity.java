@@ -2,6 +2,7 @@ package com.example.lab1;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,18 +13,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText nameField = findViewById(R.id.name);
-        EditText surnameField = findViewById(R.id.surname);
-        EditText gradesField = findViewById(R.id.grades);
+        final EditText nameField = findViewById(R.id.name);
+        final EditText surnameField = findViewById(R.id.surname);
+        final EditText gradesField = findViewById(R.id.grades);
 
         Button sendButton = (Button)findViewById(R.id.sendButton);
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        nameField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onFocusChange(View v, boolean hasFocus) {
+                boolean hasText = !nameField.getText().toString().isEmpty();
+                if (!hasFocus && !hasText) {
+                    nameField.setError("Required");
+                }
             }
         });
 
+        surnameField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                boolean hasText = !surnameField.getText().toString().isEmpty();
+                if (!hasFocus && !hasText) {
+                    surnameField.setError("Required");
+                }
+            }
+        });
+
+        gradesField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                boolean hasText = !gradesField.getText().toString().isEmpty();
+                if (!hasFocus && !hasText) {
+                    gradesField.setError("Required");
+                }
+            }
+        });
     }
 }
